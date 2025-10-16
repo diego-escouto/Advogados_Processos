@@ -1,5 +1,5 @@
-const models = require('../models');
-const Cliente = models.cliente.Cliente;
+const models = require('../models/index.js');
+const Usuario = models.usuario.Usuario;
 const Ajv = require('ajv');
 const ajv = new Ajv();
 const schema = require('../schemas/usuario/novoUsuario.js');
@@ -8,7 +8,7 @@ const helper = require('../commons/helper.js');
 const schemaLogin = require('../schemas/usuario/login.js');
 const validacaoLogin = ajv.compile(schemaLogin);
 
-class ClienteController {
+class UsuarioController {
   create(request, response) {
     let validacoes = validacao(request.body);
     if (!validacoes) {
@@ -19,16 +19,16 @@ class ClienteController {
       });
     }
 
-    const cliente = {
+    const usuario = {
       nome: request.body.nome ? request.body.nome : null,
       email: request.body.email,
       senha: helper.hashSenha(request.body.senha),
     };
 
-    Cliente.create(cliente)
+    Usuario.create(usuario)
       .then((data) => {
         data.setDataValue('senha', '');
-        data.setDataValue('token', helper.gerarTokenAcesso(cliente.nome, cliente.id));
+        data.setDataValue('token', helper.gerarTokenAcesso(usuario.nome, usuario.id));
         return response.status(201).json(data);
       })
       .catch((erro) => {
@@ -51,11 +51,11 @@ class ClienteController {
     let dados = request.body;
     dados.senha = helper.hashSenha(dados.senha);
 
-    Cliente.findOne(dados)
+    Usuario.findOne(dados)
       .then((registro) => {
         if (!registro) {
           return response.status(404).json({
-            message: 'Cliente ou senha nao foram encontrados',
+            message: 'Usuário ou senha nao foram encontrados',
           });
         }
         return response.status(200).json({
@@ -70,4 +70,4 @@ class ClienteController {
   }
 }
 
-module.exports = new ClienteController();
+module.exports = new UsuarioController();
