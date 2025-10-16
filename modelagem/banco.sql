@@ -35,7 +35,7 @@ DROP TABLE IF EXISTS `apiadvogadodb`.`processo` ;
 
 CREATE TABLE IF NOT EXISTS `apiadvogadodb`.`processo` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `numero_processo` VARCHAR(20) NOT NULL,
+  `numero_processo` VARCHAR(20) NOT NULL UNIQUE,
   `descricao` VARCHAR(150) NULL,
   `status` VARCHAR(30) NULL,
   `id_advogado` INT NOT NULL,
