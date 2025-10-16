@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('./conexao.js');
 
-class Cliente {
+class Usuario {
   #nome;
   #email;
   #senha;
@@ -29,14 +29,14 @@ class Cliente {
     this.#senha = senha;
   }
 
-  static async create(novoCliente) {
+  static async create(novoUsuario) {
     try {
-      const cliente = await ClienteModel.create({
-        nome: novoCliente.nome,
-        email: novoCliente.email,
-        senha: novoCliente.senha,
+      const usuario = await UsuarioModel.create({
+        nome: novoUsuario.nome,
+        email: novoUsuario.email,
+        senha: novoUsuario.senha,
       });
-      return cliente;
+      return usuario;
     } catch (error) {
       throw error;
     }
@@ -44,7 +44,7 @@ class Cliente {
 
   static async findOne(dados) {
     try {
-      const resultado = await ClienteModel.findOne({ where: dados });
+      const resultado = await UsuarioModel.findOne({ where: dados });
       if (resultado) {
         return resultado;
       } else {
@@ -55,7 +55,7 @@ class Cliente {
     }
   }
 }
-const ClienteModel = db.define('cliente', {
+const UsuarioModel = db.define('usuario', {
   nome: {
     type: Sequelize.STRING(200),
     allowNull: true,
@@ -69,4 +69,4 @@ const ClienteModel = db.define('cliente', {
     allowNull: false,
   },
 });
-module.exports = { Cliente, ClienteModel };
+module.exports = { Usuario, ClienteModel };
