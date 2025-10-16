@@ -2,10 +2,10 @@ const models = require('../models');
 const Cliente = models.cliente.Cliente;
 const Ajv = require('ajv');
 const ajv = new Ajv();
-const schema = require('../schemas/cliente/novoCliente.js');
+const schema = require('../schemas/usuario/novoUsuario.js');
 const validacao = ajv.compile(schema);
 const helper = require('../commons/helper.js');
-const schemaLogin = require('../schemas/cliente/login.js');
+const schemaLogin = require('../schemas/usuario/login.js');
 const validacaoLogin = ajv.compile(schemaLogin);
 
 class ClienteController {
