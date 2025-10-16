@@ -5,89 +5,67 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema apiplayerdb
+-- Schema apiadvogadodb
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema apiplayerdb
+-- Schema apiadvogadodb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `apiplayerdb` ;
-USE `apiplayerdb` ;
+CREATE SCHEMA IF NOT EXISTS `apiadvogadodb` ;
+USE `apiadvogadodb` ;
 
 -- -----------------------------------------------------
--- Table `apiplayerdb`.`jogador`
+-- Table `apiadvogadodb`.`advogado`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `apiplayerdb`.`jogador` ;
+DROP TABLE IF EXISTS `apiadvogadodb`.`advogado` ;
 
-CREATE TABLE IF NOT EXISTS `apiplayerdb`.`jogador` (
+CREATE TABLE IF NOT EXISTS `apiadvogadodb`.`advogado` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(200) NOT NULL,
-  `ataque` INT NOT NULL,
-  `defesa` INT NOT NULL,
-  `pontos_vida` INT NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+  `oab` VARCHAR(8) NOT NULL,
+  `especialidade` VARCHAR(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `apiplayerdb`.`equipamento`
+-- Table `apiadvogadodb`.`processo`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `apiplayerdb`.`equipamento` ;
+DROP TABLE IF EXISTS `apiadvogadodb`.`processo` ;
 
-CREATE TABLE IF NOT EXISTS `apiplayerdb`.`equipamento` (
+CREATE TABLE IF NOT EXISTS `apiadvogadodb`.`processo` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `id_jogador` INT NOT NULL,
+  `numero_processo` VARCHAR(20) NOT NULL,
   `descricao` VARCHAR(150) NULL,
-  `bonus_ataque` INT NULL,
-  `bonus_defesa` INT NULL,
+  `status` VARCHAR(30) NULL,
+  `id_advogado` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_equipamento_jogador1_idx` (`id_jogador` ASC),
-  CONSTRAINT `fk_equipamento_jogador1`
-    FOREIGN KEY (`id_jogador`)
-    REFERENCES `apiplayerdb`.`jogador` (`id`)
+  INDEX `fk_processo_advogado1_idx` (`id_advogado` ASC),
+  CONSTRAINT `fk_processo_advogado1`
+    FOREIGN KEY (`id_advogado`)
+    REFERENCES `apiadvogadodb`.`advogado` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `apiplayerdb`.`equipamento`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `apiplayerdb`.`equipamento` ;
-
-CREATE TABLE IF NOT EXISTS `apiplayerdb`.`equipamento` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `id_jogador` INT NOT NULL,
-  `descricao` VARCHAR(150) NULL,
-  `bonus_ataque` INT NULL,
-  `bonus_defesa` INT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_equipamento_jogador1_idx` (`id_jogador` ASC),
-  CONSTRAINT `fk_equipamento_jogador1`
-    FOREIGN KEY (`id_jogador`)
-    REFERENCES `apiplayerdb`.`jogador` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Data for table `apiplayerdb`.`jogador`
+-- Data for table `apiadvogadodb`.`advogado`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `apiplayerdb`;
-INSERT INTO `apiplayerdb`.`jogador` (`id`, `nome`, `ataque`, `defesa`, `pontos_vida`) VALUES (DEFAULT, 'player1', 40, 50, 100);
+USE `apiadvogadodb`;
+INSERT INTO `apiadvogadodb`.`advogado` (`id`, `nome`, `oab`, `especialidade`) VALUES (DEFAULT, 'advogado1', '00000001', 'penal');
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `apiplayerdb`.`equipamento`
+-- Data for table `apiadvogadodb`.`processo`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `apiplayerdb`;
-INSERT INTO `apiplayerdb`.`equipamento` (`id`, `id_jogador`, `descricao`, `bonus_ataque`, `bonus_defesa`) VALUES (DEFAULT, 1, 'espada', 30, 15);
-INSERT INTO `apiplayerdb`.`equipamento` (`id`, `id_jogador`, `descricao`, `bonus_ataque`, `bonus_defesa`) VALUES (DEFAULT, 1, 'escudo', 5, 80);
+USE `apiadvogadodb`;
+INSERT INTO `apiadvogadodb`.`processo` (`id`, `numero_processo`, `descricao`, `status`, `id_advogado`) VALUES (DEFAULT, '00001', 'Processo 1', 'em andamento', 1);
+INSERT INTO `apiadvogadodb`.`processo` (`id`, `numero_processo`, `descricao`, `status`, `id_advogado`) VALUES (DEFAULT, '00002', 'Processo 2', 'em andamento', 1);
 
 COMMIT;
 
