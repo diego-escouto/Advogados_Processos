@@ -1,7 +1,7 @@
 {
-  "name": "player-api",
+  "name": "advogados_processos",
   "version": "1.0.0",
-  "description": "api de jogadores",
+  "description": "api de advogados e processos",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,7 +11,7 @@
     "api",
     "rest"
   ],
-  "author": "fabiosperotto",
+  "author": "diego escouto",
   "license": "ISC",
   "dependencies": {
     "ajv": "^8.12.0",

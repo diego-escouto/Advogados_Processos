@@ -24,14 +24,14 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.get('/', (request, response) => {
   response.json({
     //documento JSON
-    message: 'Game API',
+    message: 'Advogados Processos API',
     version: '1.0',
   });
 });
-const jogadorRotas = require('./app/routes/jogador.routes.js');
-const clienteRotas = require('./app/routes/cliente.routes.js');
-app.use(jogadorRotas);
-app.use(clienteRotas);
+const advogadoRotas = require('./app/routes/advogado.routes.js');
+const usuarioRotas = require('./app/routes/usuario.routes.js');
+app.use(advogadoRotas);
+app.use(usuarioRotas);
 
 //RODANDO SERVER
 app.listen(config.port, () => {

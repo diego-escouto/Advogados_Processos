@@ -4,9 +4,9 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Game API - Pack de Aprendizado',
+      title: 'Advogados e Processos API - Pack de Aprendizado', 
       version: '1.0.0',
-      description: 'Documentação da API RESTful para gestão de Jogadores e Equipamentos.',
+      description: 'Documentação da API RESTful para gestão de Advogados, Processos e Usuários.', // Descrição da API
     },
     servers: [
       {
@@ -24,63 +24,70 @@ const options = {
           description: 'Para acessar as rotas protegidas, insira o token no formato: Bearer [seu_token]'
         }
       },
-      // Define os "objetos" que sua API usa
+      // Define os "objetos" (schemas) que sua API usa
       schemas: {
-        Jogador: {
+        Advogado: {
           type: 'object',
           properties: {
-            id: { type: 'integer', description: 'ID do jogador', example: 1 },
-            nome: { type: 'string', description: 'Nome do jogador', example: 'player1' },
-            ataque: { type: 'integer', description: 'Pontos de ataque', example: 40 },
-            defesa: { type: 'integer', description: 'Pontos de defesa', example: 50 },
-            pontos_vida: { type: 'integer', description: 'Pontos de vida', example: 100 },
+            id: { type: 'integer', description: 'ID do advogado', example: 1 },
+            nome: { type: 'string', description: 'Nome do advogado', example: 'Maria Silva' },
+            oab: { type: 'string', description: 'Número da OAB', example: '12345678' },
+            especialidade: { type: 'string', description: 'Especialidade', example: 'Penal' }
           }
         },
-        NovoJogador: {
+        NovoAdvogado: {
           type: 'object',
-          required: ['nome', 'ataque', 'defesa'],
+          required: ['nome', 'oab', 'especialidade'],
           properties: {
-            nome: { type: 'string', description: 'Nome do novo jogador' },
-            ataque: { type: 'integer', description: 'Pontos de ataque (máx 100)', maximum: 100 },
-            defesa: { type: 'integer', description: 'Pontos de defesa (máx 100)', maximum: 100 },
-            pontos_vida: { type: 'integer', description: 'Pontos de vida (máx 100)', maximum: 100 }
+            nome: { type: 'string', description: 'Nome do advogado' },
+            oab: { type: 'string', description: 'Número da OAB' },
+            especialidade: { type: 'string', description: 'Especialidade' }
           }
         },
-        Equipamento: {
-            type: 'object',
-            properties: {
-                id: { type: 'integer', description: 'ID do equipamento' },
-                id_jogador: { type: 'integer', description: 'ID do jogador dono do equipamento' },
-                descricao: { type: 'string', description: 'Descrição do equipamento', example: 'espada' },
-                bonus_ataque: { type: 'integer', description: 'Bônus de ataque fornecido', example: 30 },
-                bonus_defesa: { type: 'integer', description: 'Bônus de defesa fornecido', example: 15 }
-            }
+        Processo: {
+          type: 'object',
+          properties: {
+            id: { type: 'integer', description: 'ID do processo', example: 1 },
+            numero_processo: { type: 'string', description: 'Número do processo', example: '00000000000000000001' },
+            descricao: { type: 'string', description: 'Descrição do processo', example: 'Processo de exemplo' },
+            status: { type: 'string', description: 'Status do processo', example: 'em andamento' },
+            id_advogado: { type: 'integer', description: 'ID do advogado responsável', example: 1 }
+          }
         },
-        NovoEquipamento: {
-            type: 'object',
-            required: ['descricao', 'bonus_ataque', 'bonus_defesa'],
-            properties: {
-                descricao: { type: 'string', description: 'Descrição do novo equipamento' },
-                bonus_ataque: { type: 'integer', description: 'Bônus de ataque' },
-                bonus_defesa: { type: 'integer', description: 'Bônus de defesa' }
-            }
+        NovoProcesso: {
+          type: 'object',
+          required: ['numero_processo', 'descricao', 'status', 'id_advogado'],
+          properties: {
+            numero_processo: { type: 'string', description: 'Número do processo' },
+            descricao: { type: 'string', description: 'Descrição do processo' },
+            status: { type: 'string', description: 'Status do processo' },
+            id_advogado: { type: 'integer', description: 'ID do advogado responsável' }
+          }
         },
-        Cliente: {
-            type: 'object',
-            required: ['nome', 'email', 'senha'],
-            properties: {
-                nome: { type: 'string', description: 'Nome do cliente' },
-                email: { type: 'string', description: 'Email do cliente' },
-                senha: { type: 'string', description: 'Senha do cliente' }
-            }
+        Usuario: {
+          type: 'object',
+          properties: {
+            id: { type: 'integer', description: 'ID do usuário', example: 1 },
+            nome: { type: 'string', description: 'Nome do usuário', example: 'João' },
+            email: { type: 'string', description: 'Email do usuário', example: 'joao@email.com' }
+          }
         },
-         LoginCliente: {
-            type: 'object',
-            required: ['email', 'senha'],
-            properties: {
-                email: { type: 'string', description: 'Email do cliente' },
-                senha: { type: 'string', description: 'Senha do cliente' }
-            }
+        NovoUsuario: {
+          type: 'object',
+          required: ['nome', 'email', 'senha'],
+          properties: {
+            nome: { type: 'string', description: 'Nome do usuário' },
+            email: { type: 'string', description: 'Email do usuário' },
+            senha: { type: 'string', description: 'Senha do usuário' }
+          }
+        },
+        LoginUsuario: {
+          type: 'object',
+          required: ['email', 'senha'],
+          properties: {
+            email: { type: 'string', description: 'Email do usuário' },
+            senha: { type: 'string', description: 'Senha do usuário' }
+          }
         }
       }
     }
