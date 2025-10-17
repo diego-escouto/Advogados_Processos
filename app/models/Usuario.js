@@ -69,4 +69,4 @@ const UsuarioModel = db.define('usuario', {
     allowNull: false,
   },
 });
-module.exports = { Usuario, ClienteModel };
+module.exports = { Usuario, UsuarioModel };

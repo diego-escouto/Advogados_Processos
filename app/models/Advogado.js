@@ -7,7 +7,7 @@ class Advogado {
   #especialidade;
   
 
-  // constructor(nome, ataque, defesa, pontos_vida = null ) {
+  // constructor(nome, oab, especialidade = null ) {
   constructor() {}
 
   get nome() {
