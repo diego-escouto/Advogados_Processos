@@ -28,13 +28,13 @@ class TokenValido {
     }
 
     //verifica token JWT
-    jwt.verify(token, config.jwt.secret, (erro, clientedata) => {
+    jwt.verify(token, config.jwt.secret, (erro, usuariodata) => {
       if (erro) {
         return response.status(403).json({
           message: 'token esta invalido, realize o login novamente.',
         });
       }
-      // request.client = clientedata; //caso queira salvar os dados do cliente
+      // request.usuario = usuariodata; //caso queira salvar os dados do usuario
       next();
     });
   }
