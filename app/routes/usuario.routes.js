@@ -1,14 +1,14 @@
 const express = require('express');
 var router = express.Router();
-const clienteController = require('../controllers/ClienteController.js');
+const UsuarioController = require('../controllers/UsuarioController.js');
 
 /**
  * @swagger
- * /cliente:
+ * /usuario:
  *   post:
- *     summary: Cria um novo cliente
- *     description: Cadastra um novo cliente no sistema.
- *     tags: [Cliente]
+ *     summary: Cria um novo usuario
+ *     description: Cadastra um novo usuario no sistema.
+ *     tags: [Usuario]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -16,23 +16,23 @@ const clienteController = require('../controllers/ClienteController.js');
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Cliente'
+ *             $ref: '#/components/schemas/Usuario'
  *     responses:
  *       '201':
- *         description: Cliente criado com sucesso.
+ *         description: Usuario criado com sucesso.
  *       '400':
  *         description: Dados inválidos.
  */
-// Cria um novo cliente //
-router.post('/cliente', clienteController.create);
+// Cria um novo usuario //
+router.post('/usuario', UsuarioController.create);
 
 /**
  * @swagger
- * /cliente/login:
+ * /usuario/login:
  *   post:
- *     summary: Faz o login de um cliente
- *     description: Faz o login de um cliente no sistema após a autenticação.
- *     tags: [Cliente]
+ *     summary: Faz o login de um usuario
+ *     description: Faz o login de um usuario no sistema após a autenticação.
+ *     tags: [Usuario]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -40,14 +40,14 @@ router.post('/cliente', clienteController.create);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/loginCliente'
+ *             $ref: '#/components/schemas/loginUsuario'
  *     responses:
  *       '201':
  *         description: Login realizado com sucesso.
  *       '400':
  *         description: Dados inválidos.
  */
-// Faz o login de um cliente //
-router.post('/cliente/login', clienteController.login);
+// Faz o login de um usuario //
+router.post('/usuario/login', UsuarioController.login);
 
 module.exports = router;
