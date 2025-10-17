@@ -22,14 +22,19 @@ class Processo {
   set descricao(descricao) {
     this.#descricao = descricao;
   }
-
-
   get status() {
     return this.#status;
   }
   set status(status) {
     this.#status = status;
   }
+  get id_advogado() {
+    return this.#id_advogado;
+  }
+  set id_advogado(id_advogado) {
+    this.#id_advogado = id_advogado;
+  }
+  
 
   static findAllByJogadorId(id_advogado) {
     return ProcessoModel.findAll({ where: { id_advogado } });
@@ -66,14 +71,14 @@ class Processo {
   }
   
 
-const EquipamentoModel = db.define('equipamento', {
+const EquipamentoModel = db.define('processo', {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true,
   },
-  id_jogador: {
+  id_advogado: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
