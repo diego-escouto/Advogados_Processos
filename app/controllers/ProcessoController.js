@@ -1,18 +1,18 @@
-const models = require('../models');
-const Equipamento = models.equipamento.Equipamento;
+const models = require('../models/index.js');
+const Processo = models.processo.Processo;
 const Ajv = require('ajv');
 const ajv = new Ajv();
-const schema = require('../schemas/equipamento/novoEquipamento.js');
+const schema = require('../schemas/processo/novoProcesso.js');
 const validacao = ajv.compile(schema);
 
-class EquipamentoController {
-    findByJogador(request, response) {
-        Equipamento.findAllByJogadorId(request.params.id_jogador)
-            .then((equipamentos) => {
-                if (equipamentos && equipamentos.length > 0) {
-                    return response.status(200).json(equipamentos);
+class ProcessoController {
+    findByProcesso(request, response) {
+        Processo.findAllByProcessoId(request.params.id_processo)
+            .then((processos) => {
+                if (processos && processos.length > 0) {
+                    return response.status(200).json(processos);
                 }
-                return response.status(404).json({ message: 'Nenhum equipamento encontrado para este jogador' });
+                return response.status(404).json({ message: 'Nenhum processo encontrado para este advogado' });
             })
             .catch((error) => {
                 return response.status(500).json({ message: error.message });
@@ -29,14 +29,14 @@ class EquipamentoController {
             });
         }
 
-        const equipamentoParaCriar = {
+        const processoParaCriar = {
             ...request.body,
-            id_jogador: request.params.id_jogador,
+            id_advogado: request.params.id_advogado,
         };
 
-        Equipamento.create(equipamentoParaCriar)
-            .then((novoEquipamento) => {
-                return response.status(201).json(novoEquipamento);
+        Processo.create(processoParaCriar)
+            .then((novoProcesso) => {
+                return response.status(201).json(novoProcesso);
             })
             .catch((erro) => {
                 return response.status(500).json({ message: 'erro no servidor: ' + erro.message });
@@ -55,21 +55,21 @@ class EquipamentoController {
             });
         }
 
-        const equipamentoParaAtualizar = {
+        const processoParaAtualizar = {
             ...request.body,
 
         };
 
 
-        Equipamento.update(request.body, request.params.id_jogador, request.params.id_equipamento)
-            .then(equipamentoAtualizado => {
-                if (equipamentoAtualizado == 1) {
-                    Equipamento.findOne(request.params.id_jogador, request.params.id_equipamento).then(data => {
+        Processo.update(request.body, request.params.id_advogado, request.params.id_processo)
+            .then(processoAtualizado => {
+                if (processoAtualizado == 1) {
+                    Processo.findOne(request.params.id_advogado, request.params.id_processo).then(data => {
                         response.send(data);
                     });
                 } else {
                     response.send({
-                        message: `Não foi possível atualizar o equipamento com id=${request.params.id_equipamento}. Talvez o equipamento não foi encontrado ou o req.body está vazio!`
+                        message: `Não foi possível atualizar o processo com id=${request.params.id_processo}. Talvez o processo não foi encontrado ou o req.body está vazio!`
                     });
                 }
             })
@@ -82,4 +82,4 @@ class EquipamentoController {
     }
 }
 
-module.exports = new EquipamentoController();
+module.exports = new ProcessoController();

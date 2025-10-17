@@ -71,7 +71,7 @@ class Processo {
   }
   
 
-const EquipamentoModel = db.define('processo', {
+const ProcessoModel = db.define('processo', {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
