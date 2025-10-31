@@ -19,6 +19,35 @@ class ProcessoController {
             });
     }
 
+    // ADICIONADO: busca todos os processos de um advogado por id_advogado
+    findByAdvogado(request, response) {
+        const idAdvogado = request.params.id_advogado;
+
+        // se o model tiver método personalizado
+        if (typeof Processo.findAllByAdvogadoId === 'function') {
+            Processo.findAllByAdvogadoId(idAdvogado)
+                .then(processos => {
+                    if (processos && processos.length > 0) return response.status(200).json(processos);
+                    return response.status(404).json({ message: 'Nenhum processo encontrado para este advogado' });
+                })
+                .catch(err => response.status(500).json({ message: err.message }));
+            return;
+        }
+
+        // fallback para Sequelize ou implementation similar
+        if (typeof Processo.findAll === 'function') {
+            Processo.findAll({ where: { id_advogado: idAdvogado } })
+                .then(processos => {
+                    if (processos && processos.length > 0) return response.status(200).json(processos);
+                    return response.status(404).json({ message: 'Nenhum processo encontrado para este advogado' });
+                })
+                .catch(err => response.status(500).json({ message: err.message }));
+            return;
+        }
+
+        return response.status(500).json({ message: 'Método do model para buscar processos por advogado não implementado' });
+    }
+
     create(request, response) {
         let validacoes = validacao(request.body);
         if (!validacoes) {
@@ -41,8 +70,6 @@ class ProcessoController {
             .catch((erro) => {
                 return response.status(500).json({ message: 'erro no servidor: ' + erro.message });
             });
-
-
     }
 
     update(request, response) {
@@ -57,9 +84,7 @@ class ProcessoController {
 
         const processoParaAtualizar = {
             ...request.body,
-
         };
-
 
         Processo.update(request.body, request.params.id_advogado, request.params.id_processo)
             .then(processoAtualizado => {
@@ -73,12 +98,9 @@ class ProcessoController {
                     });
                 }
             })
-
-             
             .catch(erro => {
                 return response.status(500).json({ message: 'erro no servidor: ' + erro.message });
             });
-
     }
 }
 

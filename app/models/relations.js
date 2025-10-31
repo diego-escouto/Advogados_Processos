@@ -3,12 +3,14 @@
 module.exports = function (models) {
   //este relacionamento poderia estar em app/models/Advogado:
   models.advogado.hasMany(models.processo, {
-    foreignKey: 'id_advogado', //nome da FK
-    onDelete: 'SET NULL', //configuracao da FK
+    foreignKey: {
+      name: 'id_advogado',
+      allowNull: true, // <-- CORREÇÃO: Especifica que a FK pode ser nula
+    },
+    onDelete: 'SET NULL',
   });
   //este relacionamento poderia estar em app/models/Processo:
   models.processo.belongsTo(models.advogado, {
     foreignKey: 'id_advogado',
-    onDelete: 'SET NULL',
   });
 };
