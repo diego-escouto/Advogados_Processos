@@ -1,11 +1,10 @@
 module.exports = {
   type: 'object',
   properties: {
-    numero_processo: { type: 'integer' },
+    numero_processo: { type: 'string', maxLength: 20 },
     descricao: { type: 'string' },
-    status: { type: 'string' },
-    id_advogado: { type: 'integer' },
+    status: { type: 'string' }
   },
-  required: ['numero_processo', 'descricao', 'status', 'id_advogado'],
+  required: ['numero_processo', 'descricao', 'status'],
   additionalProperties: false,
 };

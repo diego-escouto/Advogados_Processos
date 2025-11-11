@@ -19,7 +19,7 @@ class ProcessoController {
             });
     }
 
-    // ADICIONADO: busca todos os processos de um advogado por id_advogado
+    // busca todos os processos de um advogado por id_advogado
     findByAdvogado(request, response) {
         const idAdvogado = request.params.id_advogado;
 
@@ -100,6 +100,26 @@ class ProcessoController {
             })
             .catch(erro => {
                 return response.status(500).json({ message: 'erro no servidor: ' + erro.message });
+            });
+    }
+
+    delete(request, response) {
+        const { id_processo } = request.params;
+
+        Processo.delete(id_processo)
+            .then((processoRemovido) => {
+                if (processoRemovido) {
+                    return response.status(200).json({
+                        message: 'Processo excluído com sucesso',
+                    });
+                } else {
+                    return response.status(404).json({
+                        message: `Processo com id ${id_processo} não encontrado.`,
+                    });
+                }
+            })
+            .catch((erro) => {
+                return response.status(500).json({ message: 'Erro no servidor: ' + erro.message });
             });
     }
 }

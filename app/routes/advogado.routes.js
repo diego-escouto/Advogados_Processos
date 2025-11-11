@@ -257,4 +257,32 @@ router.post('/advogado/:id_advogado/processo', [authMiddleware.check], ProcessoC
 //atualiza o processo de um advogado
 router.put('/advogado/:id_advogado/processo/:id_processo', [authMiddleware.check], ProcessoController.update);
 
+/**
+ * @swagger
+ * /processo/{id_processo}:
+ *   delete:
+ *     summary: Exclui um processo pelo seu ID
+ *     description: Remove um processo do banco de dados.
+ *     tags: [Processo]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id_processo
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: O ID do processo a ser excluído.
+ *     responses:
+ *       '200':
+ *         description: Processo excluído com sucesso.
+ *       '404':
+ *         description: Processo não encontrado.
+ *       '500':
+ *         description: Erro no servidor.
+ */
+// Exclui um processo pelo seu ID
+router.delete('/processo/:id_processo', [authMiddleware.check], ProcessoController.delete);
+
+
 module.exports = router;

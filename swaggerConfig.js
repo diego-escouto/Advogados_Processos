@@ -56,12 +56,11 @@ const options = {
         },
         NovoProcesso: {
           type: 'object',
-          required: ['numero_processo', 'descricao', 'status', 'id_advogado'],
+          required: ['numero_processo', 'descricao', 'status'],
           properties: {
             numero_processo: { type: 'string', description: 'Número do processo' },
             descricao: { type: 'string', description: 'Descrição do processo' },
-            status: { type: 'string', description: 'Status do processo' },
-            id_advogado: { type: 'integer', description: 'ID do advogado responsável' }
+            status: { type: 'string', description: 'Status do processo' }
           }
         },
         Usuario: {

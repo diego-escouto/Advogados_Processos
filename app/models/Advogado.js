@@ -35,7 +35,7 @@ class Advogado {
 
   static async findByPk(id) {
     try {
-      const resultado = await AdvogadoModel.findByPk(id);
+      const resultado = await AdvogadoModel.findByPk(id, { include: 'processos' }); // Inclui os processos associados
       if (resultado) {
         return resultado;
       } else {
@@ -46,9 +46,9 @@ class Advogado {
     }
   }
 
-  static async findAll(processo) {
+  static async findAll() { // Não precisa mais de includeOptions aqui
     try {
-      const resultados = await AdvogadoModel.findAll({ include: processo }); //{where ...}
+      const resultados = await AdvogadoModel.findAll({ include: 'processos' }); // Inclui os processos associados
       if (resultados) {
         return resultados;
       } else {
@@ -63,8 +63,8 @@ class Advogado {
     try {
       const advogado = await AdvogadoModel.create({
         nome: novoAdvogado.nome,
-        ataque: novoAdvogado.oab,
-        defesa: novoAdvogado.especialidade,
+        oab: novoAdvogado.oab,
+        especialidade: novoAdvogado.especialidade,
       
       });
       return advogado;
