@@ -1,0 +1,56 @@
+NO CMD, ENTRE NA SUA PASTA "CD documentos --> cd "diego escouto"
+
+baixe o projeto --> https://github.com/diego-escouto/Advogados_Processos.git
+
+abra o projeto com o VSCode
+
+no terminal, digite o comando NPM INSTALL
+
+clone o .ENV, mude os dados do documento.
+
+abra o xampp e dê start no apache, clique em admin, mude a rota para http://localhost:8080 pois vai estar com a sintaxe errada
+
+crie o banco de dados com nome escolhido no .ENV
+
+no terminal do VSCODE, digite o comando NPM RUN DEV para rodar o projeto.
+----------------------------------------------------------------------------
+
+no postman vá em autenticação, selecione a opção JWT e cole a chave que está no .ENV  advogados@2025!api
+
+digite a rota http://localhost:8080/usuario
+
+vá em body, raw e mude o tipo de dados para JSON. Adicione os dados para criar um usuário.
+
+{
+	"nome":"usuario 1",
+	"teste@teste.com",
+	"senha":"12345678"
+}
+
+digite a rota http://localhost:8080/usuario/login
+
+{
+
+	"teste@teste.com",
+	"senha":"12345678"
+}
+----------------------------------------------------------------
+
+PRONTO, VOCÊ ESTÁ LOGADO!!!
+
+digite a rota http://localhost:8080/advogado
+
+{
+     "nome": "adv att",
+    "oab": "1111111111",
+    "especialidade": "att"
+    
+}
+
+DADOS PARA CRIAÇÃO DE UM PROCESSO
+
+{
+  "numero_processo": "20250012345",
+  "descricao": "Processo referente a danos morais",
+  "status": "em andamento"
+}
