@@ -34,7 +34,7 @@ class ProcessoController {
             return;
         }
 
-        // fallback para Sequelize ou implementation similar
+
         if (typeof Processo.findAll === 'function') {
             Processo.findAll({ where: { id_advogado: idAdvogado } })
                 .then(processos => {
